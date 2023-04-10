@@ -1,5 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-servers',
@@ -14,9 +15,14 @@ export class ServersComponent implements OnInit {
   serverCreationStatus = 'No server was created!';
   serverName = 'Testserver';
   constructor() {
-    setTimeout(() => {
+    // setTimeout(() => {
+    //   this.allowNewServer = true;
+    // }, 2000);
+
+    // Another, more efficient way to use timer
+    timer(2000).subscribe(() => {
       this.allowNewServer = true;
-    }, 2000);
+    });
   }
 
   ngOnInit(): void {}
