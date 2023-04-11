@@ -1,35 +1,35 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-servers',
   // template: `
   // <app-server></app-server>
   //         <app-server></app-server>`,
-  templateUrl:'./servers.component.html',
-  styleUrls: ['./servers.component.css']
+  templateUrl: './servers.component.html',
+  styleUrls: ['./servers.component.css'],
 })
 export class ServersComponent implements OnInit {
-  allowNewServer =false;
-  serverCreationStatus='No server was created!';
-  serverName='Testserver';
-  serverCreated = false;
-  servers=['Testserver','Testserver2']
-  constructor() { 
-    setTimeout(() =>{
-      this.allowNewServer=true;
-    },2000);
+  allowNewServer = false;
+  serverCreationStatus = 'No server was created!';
+  serverName = 'Testserver';
+  constructor() {
+    // setTimeout(() => {
+    //   this.allowNewServer = true;
+    // }, 2000);
+
+    // Another, more efficient way to use timer
+    timer(2000).subscribe(() => {
+      this.allowNewServer = true;
+    });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  onCreateServer() {
+    this.serverCreationStatus = 'server was created';
   }
-  onCreateServer(){
-    this.serverCreated=true;
-    this.servers.push(this.serverName)
-    this.serverCreationStatus='server was created! and name is' + this.serverName;
-  }
-  onUpdateServerName(event:any){
-    
-    this.serverName=(<HTMLInputElement>event.target).value;
+  onUpdateServerName(event: any) {
+    this.serverName = (<HTMLInputElement>event.target).value;
   }
 }
